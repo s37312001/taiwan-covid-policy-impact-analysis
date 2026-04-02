@@ -1,6 +1,7 @@
+# Taiwan COVID-19 Policy Impact Analysis
+
 ## Project Structure
 
-```text
 ├── README.md
 ├── docs/
 │   ├── methodology.md
