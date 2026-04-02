@@ -1,200 +1,158 @@
 # Taiwan COVID-19 Policy Impact Analysis
-# analysis.R
-# Run from project root with:
-# source("scripts/analysis.R")
 
-options(stringsAsFactors = FALSE)
+Sys.setlocale("LC_ALL", "en_GB.UTF-8") #translate graph into English
 
-required_packages <- c(
-  "tidyverse",
-  "lubridate",
-  "ggplot2",
-  "gridExtra",
-  "zoo"
-)
+#1. Read data from csv
+#Date from 2021/01/16 to 2022/07/03
+covid_data <- read.csv("owid-covid-data.csv", header=TRUE) 
 
-install_if_missing <- function(pkgs) {
-  missing <- pkgs[!sapply(pkgs, requireNamespace, quietly = TRUE)]
-  if (length(missing) > 0) {
-    install.packages(missing, repos = "https://cloud.r-project.org")
-  }
-}
+#Date from 2020/01/01 to 2022/12/05
+facial_coverings <- read.csv("face-covering-policies-covid.csv", header=TRUE) 
 
-install_if_missing(required_packages)
+#Date from 2020/01/01 to 2022/12/05
+cancel_public_events <- read.csv("public-events-covid.csv", header=TRUE)
 
+#Date from 2020/01/01 to 2022/12/05
+stay_home_requirements <- read.csv("stay-at-home-covid.csv", header=TRUE) 
+
+#2. Process with data
 library(tidyverse)
 library(lubridate)
+
+#Separate date to 3 columns
+covid_data = covid_data %>%
+  mutate(date = ymd(date)) %>%
+  mutate_at(vars(date), funs(year, month, day))
+
+#Select data
+library(dplyr)
+
+#Rows
+covid_data <- filter(covid_data, location=="Taiwan", year == "2021") 
+
+#Columns
+covid_data <- select(covid_data, location, date, new_cases) 
+
+facial_coverings = facial_coverings %>%
+  mutate(Day = ymd(Day)) %>%
+  mutate_at(vars(Day), funs(year, month, day))
+facial_coverings <- filter(facial_coverings, Entity=="Taiwan", year == "2021")
+facial_coverings <- facial_coverings[,-1:-2]
+
+cancel_public_events = cancel_public_events %>%
+  mutate(Day = ymd(Day)) %>%
+  mutate_at(vars(Day), funs(year, month, day))
+cancel_public_events <- filter(cancel_public_events, Entity=="Taiwan", year == "2021")
+cancel_public_events <- cancel_public_events[,-1:-2]
+
+stay_home_requirements = stay_home_requirements %>%
+  mutate(Day = ymd(Day)) %>%
+  mutate_at(vars(Day), funs(year, month, day))
+stay_home_requirements <- filter(stay_home_requirements, Entity=="Taiwan", year == "2021")
+stay_home_requirements <- stay_home_requirements[,-1:-2]
+
+#3. Combine & select data by “Day”
+colnames(covid_data)[2]  <- "Day"
+covid_data = covid_data %>% left_join(facial_coverings, by="Day")
+covid_data = covid_data %>% left_join(cancel_public_events, by="Day")
+covid_data = covid_data %>% left_join(stay_home_requirements, by="Day")
+
+covid_data <- covid_data[,-c(5,6,7,9,10,11,13,14,15)]
+
+head(covid_data)
+tail(covid_data)
+
+#4. Transfer continuous variable (new_cases) to categorical data and add behind the dataset
+level_new_cases <- cut(covid_data$new_cases, breaks = 5, labels = 0:4)
+covid_data <- cbind(covid_data, level_new_cases)
+
+head(covid_data)
+tail(covid_data)
+
+#5. Chi-square test analysis for three policies
+chisq.test(covid_data$level_new_cases, covid_data$facial_coverings, correct=FALSE)
+#X-squared = 90.402, df = 8, p-value = 3.853e-16
+
+chisq.test(covid_data$level_new_cases, covid_data$cancel_public_events, correct=FALSE)
+#X-squared = 119.69, df = 8, p-value < 2.2e-16
+
+chisq.test(covid_data$level_new_cases, covid_data$stay_home_requirements, correct=FALSE)
+#X-squared = 119.33, df = 4, p-value < 2.2e-16
+
+#6. Visualisation
 library(ggplot2)
 library(gridExtra)
-library(zoo)
 
-raw_dir <- "data/raw"
-processed_dir <- "data/processed"
-figures_dir <- "figures"
+facial.plot <- ggplot(covid_data, aes(x=Day))+
+  geom_line(aes(y=new_cases/100, col="New Cases (hundred)"))+
+  geom_line(aes(y=facial_coverings, col="Levels of Facial Covering Policies"))+
+  labs(x=NULL, y=NULL,
+    title="Levels of Facial Covering Policies in 2021")+
+  scale_colour_manual(name="Legend",
+      values=c("New Cases (hundred)"="red",
+        "Levels of Facial Covering Policies"="blue"))
 
-dir.create(processed_dir, recursive = TRUE, showWarnings = FALSE)
-dir.create(figures_dir, recursive = TRUE, showWarnings = FALSE)
+plot(facial.plot)
 
-covid_path <- file.path(raw_dir, "owid-covid-data.csv")
-face_path <- file.path(raw_dir, "face-covering-policies-covid.csv")
-public_path <- file.path(raw_dir, "public-events-covid.csv")
-home_path <- file.path(raw_dir, "stay-at-home-covid.csv")
+public.plot <- ggplot(covid_data, aes(x=Day))+
+  geom_line(aes(y=new_cases/100, col="New Cases (hundred)"))+
+  geom_line(aes(y=cancel_public_events, col="Levels of Public Event Cancellation"))+
+  labs(x=NULL, y=NULL,
+    title="Levels of Public Event Cancellation in 2021")+
+  scale_colour_manual(name="Legend",
+      values=c("New Cases (hundred)"="red",
+        "Levels of Public Event Cancellation"="green"))
 
-required_files <- c(covid_path, face_path, public_path, home_path)
-missing_files <- required_files[!file.exists(required_files)]
+plot(public.plot)
 
-if (length(missing_files) > 0) {
-  stop(
-    paste(
-      "Missing required files:",
-      paste(missing_files, collapse = ", "),
-      "\nPlease place them in data/raw/ before running this script."
-    )
-  )
-}
+home.plot <- ggplot(covid_data, aes(x=Day))+
+  geom_line(aes(y=new_cases/100, col="New Cases (hundred)"))+
+  geom_line(aes(y=stay_home_requirements, col="Levels of Stay at Home Requirement"))+
+  labs(x=NULL, y=NULL,
+    title="Levels of Stay at Home Requirement in 2021")+
+  scale_colour_manual(name="Legend",
+      values=c("New Cases (hundred)"="red",
+        "Levels of Stay at Home Requirement"="purple"))
 
-prepare_policy_data <- function(file_path, value_col_name, country = "Taiwan", year_filter = 2021) {
-  df <- read.csv(file_path, header = TRUE)
-  df_clean <- df %>%
-    mutate(Day = ymd(Day)) %>%
-    filter(Entity == country, year(Day) == year_filter)
+plot(home.plot)
 
-  candidate_cols <- setdiff(names(df_clean), c("Entity", "Code", "Day"))
-  if (length(candidate_cols) == 0) {
-    stop(paste("No policy column found in", file_path))
-  }
+library(gridExtra)
+grid.arrange(facial.plot, public.plot, home.plot, ncol=1)
 
-  value_col <- candidate_cols[1]
+#7. Obtain data again & Choose other indicators
+covid_data_2022 <- read.csv("owid-covid-data.csv", header=TRUE)
 
-  df_clean %>%
-    select(Day, !!sym(value_col)) %>%
-    rename(!!value_col_name := !!sym(value_col))
-}
-
-save_plot <- function(plot_obj, filename, width = 10, height = 5, dpi = 300) {
-  ggsave(
-    filename = file.path(figures_dir, filename),
-    plot = plot_obj,
-    width = width,
-    height = height,
-    dpi = dpi
-  )
-}
-
-covid_raw <- read.csv(covid_path, header = TRUE)
-
-covid_2021 <- covid_raw %>%
+covid_data_2022 = covid_data_2022 %>%
   mutate(date = ymd(date)) %>%
-  filter(location == "Taiwan", year(date) == 2021) %>%
-  select(location, date, new_cases) %>%
-  rename(Day = date)
+  mutate_at(vars(date), funs(year, month, day))
 
-facial_coverings <- prepare_policy_data(face_path, "facial_coverings", country = "Taiwan", year_filter = 2021)
-cancel_public_events <- prepare_policy_data(public_path, "cancel_public_events", country = "Taiwan", year_filter = 2021)
-stay_home_requirements <- prepare_policy_data(home_path, "stay_home_requirements", country = "Taiwan", year_filter = 2021)
+covid_data_2022 <- filter(covid_data_2022, location == "Taiwan", year == "2022")
+covid_data_2022 <- select(covid_data_2022, location, date, people_vaccinated, total_cases, total_deaths)
 
-covid_data <- covid_2021 %>%
-  left_join(facial_coverings, by = "Day") %>%
-  left_join(cancel_public_events, by = "Day") %>%
-  left_join(stay_home_requirements, by = "Day") %>%
-  mutate(
-    facial_coverings = replace_na(as.numeric(facial_coverings), 0),
-    cancel_public_events = replace_na(as.numeric(cancel_public_events), 0),
-    stay_home_requirements = replace_na(as.numeric(stay_home_requirements), 0),
-    new_cases = replace_na(as.numeric(new_cases), 0),
-    level_new_cases = cut(new_cases, breaks = 5, labels = 0:4, include.lowest = TRUE)
-  )
+#8. Process with missing value
+install.packages("zoo")
+library("zoo")
+covid_data_2022 <- na.locf(covid_data_2022, na.rm = FALSE)
+#na.rm = FALSE, in order to keep Null value
+covid_data_2022$people_vaccinated[1] <- 18712858
 
-write.csv(covid_data, file.path(processed_dir, "covid_policy_taiwan_2021.csv"), row.names = FALSE)
+#9. Visualisation
+people_vaccinated.bar <- ggplot(covid_data_2022, aes(date,
+people_vaccinated/1000000))+geom_bar(stat="identity", fill="lightgreen")+
+  labs(x=NULL, y="People vaccinated (million)",
+    title="People vaccinated (million) in 2022 (cumulative)")
 
-chi_face <- chisq.test(covid_data$level_new_cases, covid_data$facial_coverings, correct = FALSE)
-chi_public <- chisq.test(covid_data$level_new_cases, covid_data$cancel_public_events, correct = FALSE)
-chi_home <- chisq.test(covid_data$level_new_cases, covid_data$stay_home_requirements, correct = FALSE)
+total_cases.bar <- ggplot(covid_data_2022, aes(date,
+total_cases/1000000))+geom_bar(stat="identity", fill="lightblue")+
+  labs(x=NULL, y="Total cases (million)",
+    title="Total cases (million) in 2022 (cumulative)")
 
-chi_results <- tibble(
-  policy = c("facial_coverings", "cancel_public_events", "stay_home_requirements"),
-  x_squared = c(unname(chi_face$statistic), unname(chi_public$statistic), unname(chi_home$statistic)),
-  df = c(unname(chi_face$parameter), unname(chi_public$parameter), unname(chi_home$parameter)),
-  p_value = c(chi_face$p.value, chi_public$p.value, chi_home$p.value)
-)
+total_deaths.bar <- ggplot(covid_data_2022, aes(date,
+total_deaths/1000000))+geom_bar(stat="identity", fill="purple")+
+  labs(x=NULL, y="Total deaths (million)",
+    title="Total deaths (million) in 2022 (cumulative)")
 
-write.csv(chi_results, file.path(processed_dir, "chi_square_results_2021.csv"), row.names = FALSE)
+grid.arrange(people_vaccinated.bar, total_cases.bar, total_deaths.bar, ncol=1)
 
-facial_plot <- ggplot(covid_data, aes(x = Day)) +
-  geom_line(aes(y = new_cases / 100, color = "New Cases (hundred)")) +
-  geom_line(aes(y = facial_coverings, color = "Levels of Facial Covering Policies")) +
-  labs(x = NULL, y = NULL, title = "Levels of Facial Covering Policies in 2021", color = "Legend") +
-  scale_color_manual(values = c("New Cases (hundred)" = "red", "Levels of Facial Covering Policies" = "blue")) +
-  theme_minimal()
-
-public_plot <- ggplot(covid_data, aes(x = Day)) +
-  geom_line(aes(y = new_cases / 100, color = "New Cases (hundred)")) +
-  geom_line(aes(y = cancel_public_events, color = "Levels of Public Event Cancellation")) +
-  labs(x = NULL, y = NULL, title = "Levels of Public Event Cancellation in 2021", color = "Legend") +
-  scale_color_manual(values = c("New Cases (hundred)" = "red", "Levels of Public Event Cancellation" = "green")) +
-  theme_minimal()
-
-home_plot <- ggplot(covid_data, aes(x = Day)) +
-  geom_line(aes(y = new_cases / 100, color = "New Cases (hundred)")) +
-  geom_line(aes(y = stay_home_requirements, color = "Levels of Stay at Home Requirement")) +
-  labs(x = NULL, y = NULL, title = "Levels of Stay at Home Requirement in 2021", color = "Legend") +
-  scale_color_manual(values = c("New Cases (hundred)" = "red", "Levels of Stay at Home Requirement" = "purple")) +
-  theme_minimal()
-
-save_plot(facial_plot, "face_covering_vs_new_cases.png")
-save_plot(public_plot, "public_event_cancellation_vs_new_cases.png")
-save_plot(home_plot, "stay_home_vs_new_cases.png")
-
-combined_2021 <- grid.arrange(facial_plot, public_plot, home_plot, ncol = 1)
-ggsave(filename = file.path(figures_dir, "combined_policy_plots_2021.png"), plot = combined_2021, width = 10, height = 14, dpi = 300)
-
-covid_data_2022 <- covid_raw %>%
-  mutate(date = ymd(date)) %>%
-  filter(location == "Taiwan", year(date) == 2022) %>%
-  select(location, date, people_vaccinated, total_cases, total_deaths) %>%
-  arrange(date) %>%
-  mutate(
-    people_vaccinated = na.locf(people_vaccinated, na.rm = FALSE),
-    total_cases = na.locf(total_cases, na.rm = FALSE),
-    total_deaths = na.locf(total_deaths, na.rm = FALSE)
-  )
-
-if (is.na(covid_data_2022$people_vaccinated[1])) {
-  covid_data_2022$people_vaccinated[1] <- 18712858
-}
-
-covid_data_2022 <- covid_data_2022 %>%
-  mutate(mortality_rate = total_deaths / total_cases)
-
-write.csv(covid_data_2022, file.path(processed_dir, "covid_metrics_taiwan_2022.csv"), row.names = FALSE)
-
-people_vaccinated_bar <- ggplot(covid_data_2022, aes(date, people_vaccinated / 1000000)) +
-  geom_bar(stat = "identity", fill = "lightgreen") +
-  labs(x = NULL, y = "People vaccinated (million)", title = "People Vaccinated (million) in 2022 (cumulative)") +
-  theme_minimal()
-
-total_cases_bar <- ggplot(covid_data_2022, aes(date, total_cases / 1000000)) +
-  geom_bar(stat = "identity", fill = "lightblue") +
-  labs(x = NULL, y = "Total cases (million)", title = "Total Cases (million) in 2022 (cumulative)") +
-  theme_minimal()
-
-total_deaths_bar <- ggplot(covid_data_2022, aes(date, total_deaths / 1000000)) +
-  geom_bar(stat = "identity", fill = "purple") +
-  labs(x = NULL, y = "Total deaths (million)", title = "Total Deaths (million) in 2022 (cumulative)") +
-  theme_minimal()
-
-mortality_plot <- ggplot(covid_data_2022, aes(date, mortality_rate)) +
-  geom_line(color = "red") +
-  labs(x = NULL, y = "Total Deaths / Total Cases", title = "Mortality Rate") +
-  theme_minimal()
-
-save_plot(people_vaccinated_bar, "people_vaccinated_2022.png")
-save_plot(total_cases_bar, "total_cases_2022.png")
-save_plot(total_deaths_bar, "total_deaths_2022.png")
-save_plot(mortality_plot, "mortality_rate.png")
-
-combined_2022 <- grid.arrange(people_vaccinated_bar, total_cases_bar, total_deaths_bar, ncol = 1)
-ggsave(filename = file.path(figures_dir, "combined_2022_bars.png"), plot = combined_2022, width = 10, height = 12, dpi = 300)
-
-cat("\n=== Analysis complete ===\n")
-print(chi_results)
+ggplot(covid_data_2022, aes(date, total_deaths/total_cases))+ geom_line(colour="red")+
+  labs(x=NULL, y="Total Deaths/Total Cases", title="Mortality rate")
