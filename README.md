@@ -1,3 +1,24 @@
+## Project Structure
+
+```text
+.
+├── README.md
+├── docs/
+│   ├── methodology.md
+│   ├── findings.md
+│   ├── conclution_and_limitations.md
+│   └── references.md
+├── scripts/
+│   └── analysis.R
+├── figures/
+
+## Recommended Reading Order
+- [Methodology](methodology.md)
+- [Findings](findings.md)
+- [Limitations](conclution_and_limitations.md)
+- [References](references.md)
+- [Analysis Script](analysis.R)
+
 # Taiwan COVID-19 Policy Impact Analysis
 
 > A data analysis project exploring whether government policy intensity was significantly associated with COVID-19 case severity in Taiwan, and how vaccination expansion related to mortality decline.
@@ -63,12 +84,4 @@ Public datasets from **Our World in Data**
 - `total_deaths`
 
 ---
-
-## Quick Navigation
-
-- [Methodology](docs/methodology.md)
-- [Findings](docs/findings.md)
-- [Limitations](docs/conclution_and_limitations.md)
-- [References](docs/references.md)
-- [Analysis Script](scripts/analysis.R)
 
