@@ -12,7 +12,7 @@ The merged 2021 dataset combined daily new cases with three policy indicators:
 - public event cancellation
 - stay-at-home requirements
 
-![image](The graph 1.png)
+![image](https://github.com/s37312001/taiwan-covid-policy-impact-analysis/blob/main/The%20graph%201.png)
 
 To run the Chi-square test, `new_cases` was converted into a categorical variable called `level_new_cases`.
 
