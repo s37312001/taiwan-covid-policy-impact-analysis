@@ -2,6 +2,7 @@
 
 ## Project Structure
 
+```text
 ├── README.md
 ├── docs/
 │   ├── methodology.md
@@ -11,6 +12,7 @@
 ├── scripts/
 │   └── analysis.R
 ├── figures/
+```
 
 ## Recommended Reading Order
 - [Methodology](methodology.md)
