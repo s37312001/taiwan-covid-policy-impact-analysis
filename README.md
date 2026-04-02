@@ -1,6 +1,3 @@
-# taiwan-covid-policy-impact-analysis
-Introduction to Data Science essay from Data Science master course, University of Sheffield
-
 # Taiwan COVID-19 Policy Impact Analysis
 
 > An analytical project exploring whether government policy intensity was significantly associated with COVID-19 case severity in Taiwan, and how vaccination expansion related to mortality decline.
