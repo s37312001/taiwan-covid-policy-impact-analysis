@@ -1,7 +1,6 @@
 ## Project Structure
 
 ```text
-.
 ├── README.md
 ├── docs/
 │   ├── methodology.md
