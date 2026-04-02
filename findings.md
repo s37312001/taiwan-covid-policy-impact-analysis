@@ -26,32 +26,11 @@ The line charts show that Taiwan’s major outbreak period in 2021 occurred arou
 - public event cancellation rules were tightened
 - stay-at-home requirements were also raised
 
-### Interpretation
-This pattern suggests that Taiwan used a **responsive intervention model**: restrictions were intensified when outbreak severity rose and then relaxed when cases came down.
-
-### Portfolio framing
-For a business or policy analytics interview, this shows the ability to connect:
-
-- numerical results
-- time-based context
-- policy decisions
-- operational interpretation
-
 ---
 
 ## Key Finding 3: Taiwan followed a “soft lockdown” pattern rather than prolonged hard lockdown
 
 The project observes that Taiwan did not maintain the strictest policy level for extended periods. Instead, restrictions were increased during severe periods and downgraded afterward.
-
-### Interpretation
-This suggests that the government attempted to balance:
-
-- epidemic control
-- public mobility
-- economic and social continuity
-
-### Why this matters
-This is useful as an example of **adaptive policy design**, where interventions are escalated when needed rather than fixed at the highest possible restriction level.
 
 ---
 
@@ -71,12 +50,7 @@ The 2022 analysis focused on:
 - mortality rate dropped substantially after April and remained much lower than earlier in the year
 
 ### Interpretation
-Although infection volume expanded, the risk of death relative to total cases decreased. This is consistent with the view that broader vaccination coverage reduced the severity of outcomes.
-
-### Interview-friendly takeaway
-A concise way to present this insight:
-
-> The raw number of infections alone did not tell the full story. Once vaccine coverage increased, mortality rate became a more meaningful severity indicator than case volume by itself.
+Although infection volume expanded, the risk of death relative to total cases decreased. This is consistent with the view that broader vaccination coverage reduced the severity of outcomes.The raw number of infections alone did not tell the full story. Once vaccine coverage increased, mortality rate became a more meaningful severity indicator than case volume by itself.
 
 ---
 
