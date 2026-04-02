@@ -79,7 +79,7 @@ Public datasets from **Our World in Data**
 ## 6. Recommended Reading Order
 1. [Methodology](methodology.md)
 2. [Findings](findings.md)
-3. [Limitations](conclution_and_limitations.md)
+3. [Limitations](conclution_and_limitation.md)
 4. [References](references.md)
 5. [Analysis Script](analysis.R)
 
