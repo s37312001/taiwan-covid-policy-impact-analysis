@@ -16,14 +16,7 @@ Three Chi-square tests were performed to evaluate whether policy levels and case
 - **Stay-at-home requirements:** X² = 119.33, p < 2.2e-16
 
 ### Interpretation
-All three p-values were well below conventional significance thresholds. This means the null hypothesis of no association was rejected for all three policy measures in the 2021 Taiwan dataset.
-
-### Interview-friendly takeaway
-A strong way to explain this result is:
-
-> In 2021, the policy intensity variables and the categorized outbreak severity variable were statistically linked, suggesting that policy changes moved together with changes in the outbreak environment.
-
----
+All three p-values were well below conventional significance thresholds. This means the null hypothesis of no association was rejected for all three policy measures in the 2021 Taiwan dataset. In 2021, the policy intensity variables and the categorized outbreak severity variable were statistically linked, suggesting that policy changes moved together with changes in the outbreak environment.
 
 ## Key Finding 2: Policy tightening aligned with the May 2021 outbreak spike
 
