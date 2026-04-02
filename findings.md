@@ -16,11 +16,11 @@ The merged 2021 dataset combined daily new cases with three policy indicators:
 
 To run the Chi-square test, `new_cases` was converted into a categorical variable called `level_new_cases`.
 
-![Case severity level variable](The graph 2.png)
+![image](https://github.com/s37312001/taiwan-covid-policy-impact-analysis/blob/main/The%20graph%202.png)
 
 The policy levels used in this project are summarized below.
 
-![Policy level definition table](table 1.png)
+![image](https://github.com/s37312001/taiwan-covid-policy-impact-analysis/blob/main/table%201.png)
 
 ---
 
@@ -44,7 +44,7 @@ This suggests that policy intensity and COVID-19 case severity were significantl
 ### 1. Face covering policies tightened during the 2021 outbreak peak
 The chart below shows that new cases surged around May 2021, and face covering rules were raised from a moderate level to the strictest level.
 
-![Face covering policies vs new cases](the first line chart.png)
+![image](https://github.com/s37312001/taiwan-covid-policy-impact-analysis/blob/main/the%20first%20line%20chart.png)
 
 **Takeaway:** mask policy became stricter as outbreak severity increased.
 
@@ -53,7 +53,7 @@ The chart below shows that new cases surged around May 2021, and face covering r
 ### 2. Public event restrictions were strengthened temporarily
 Public event cancellation policies became stricter during the outbreak peak, but the restriction period was relatively short and later returned to a lower level.
 
-![Public event cancellation vs new cases](The second line chart.png)
+![image](https://github.com/s37312001/taiwan-covid-policy-impact-analysis/blob/main/The%20second%20line%20chart.png)
 
 **Takeaway:** Taiwan responded with short-term restrictions rather than prolonged shutdowns.
 
@@ -62,7 +62,7 @@ Public event cancellation policies became stricter during the outbreak peak, but
 ### 3. Stay-at-home requirements were also tightened during the surge
 Stay-at-home restrictions increased after the May 2021 outbreak, then gradually relaxed as conditions improved.
 
-![Stay-at-home requirements vs new cases](the third line chart.png)
+![image](https://github.com/s37312001/taiwan-covid-policy-impact-analysis/blob/main/the%20third%20line%20chart.png)
 
 **Takeaway:** Taiwan followed a responsive **soft lockdown** pattern instead of maintaining long-term severe restrictions.
 
@@ -71,7 +71,7 @@ Stay-at-home restrictions increased after the May 2021 outbreak, then gradually 
 ### 4. Vaccination increased substantially in 2022
 The 2022 cumulative charts show strong vaccination growth, alongside rising total cases and total deaths.
 
-![Vaccination, cases, and deaths in 2022](the graph 3.png)
+![image](https://github.com/s37312001/taiwan-covid-policy-impact-analysis/blob/main/the%20graph%203.png)
 
 **Takeaway:** although infections increased sharply in 2022, vaccination coverage also rose to a high level.
 
@@ -80,7 +80,7 @@ The 2022 cumulative charts show strong vaccination growth, alongside rising tota
 ### 5. Mortality rate declined sharply in 2022
 The mortality rate chart shows that `total_deaths / total_cases` fell significantly after April 2022 and stayed at a relatively low level afterward.
 
-![Mortality rate trend](The fourth line chart.png)
+![image](https://github.com/s37312001/taiwan-covid-policy-impact-analysis/blob/main/The%20fourth%20line%20chart.png)
 
 **Takeaway:** even though total cases rose, severe outcomes became relatively less frequent after vaccination expanded.
 
