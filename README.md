@@ -64,29 +64,11 @@ Public datasets from **Our World in Data**
 
 ---
 
-## 5. Methodology
+## Quick Navigation
 
-### Analytical Workflow
+- [Methodology](docs/methodology.md)
+- [Findings](docs/findings.md)
+- [Limitations](docs/conclution_and_limitations.md)
+- [References](docs/references.md)
+- [Analysis Script](scripts/analysis.R)
 
-```text
-Define question
-   ↓
-Collect Taiwan COVID and policy datasets
-   ↓
-Clean and standardize dates
-   ↓
-Filter Taiwan records by year
-   ↓
-Merge COVID data with policy datasets by date
-   ↓
-2021:
-- Convert new_cases into severity categories
-- Run Chi-square tests
-   ↓
-2022:
-- Track vaccination, total cases, total deaths
-- Calculate mortality rate
-   ↓
-Visualize findings
-   ↓
-Summarize business / policy insights
