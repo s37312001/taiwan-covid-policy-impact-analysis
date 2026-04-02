@@ -71,7 +71,7 @@ Stay-at-home restrictions increased after the May 2021 outbreak, then gradually 
 ### 4. Vaccination increased substantially in 2022
 The 2022 cumulative charts show strong vaccination growth, alongside rising total cases and total deaths.
 
-![Vaccination, cases, and deaths in 2022](the graph 4.png)
+![Vaccination, cases, and deaths in 2022](the graph 3.png)
 
 **Takeaway:** although infections increased sharply in 2022, vaccination coverage also rose to a high level.
 
