@@ -19,8 +19,6 @@ The project focuses on two analytical questions:
 1. In **2021**, were stricter policies significantly associated with higher COVID-19 case severity?
 2. In **2022**, after vaccination coverage increased, did mortality risk decline even though total cases rose?
 
-This project was originally developed as a final report for an *Introduction to Data Science* course, then redesigned into a portfolio-style analytics case study for business analyst / data analyst interviews.
-
 ---
 
 ## 2. Why I Chose This Topic
