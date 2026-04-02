@@ -52,28 +52,3 @@ The 2022 analysis focused on:
 ### Interpretation
 Although infection volume expanded, the risk of death relative to total cases decreased. This is consistent with the view that broader vaccination coverage reduced the severity of outcomes.The raw number of infections alone did not tell the full story. Once vaccine coverage increased, mortality rate became a more meaningful severity indicator than case volume by itself.
 
----
-
-## What These Findings Demonstrate
-
-This project shows several practical analytics capabilities:
-
-### 1. Multi-source data integration
-The analysis combined one COVID dataset with three policy datasets and aligned them on date.
-
-### 2. Method selection
-The project adapted the method to the structure of the variables:
-- Chi-square for 2021 categorical association
-- trend analysis for 2022 cumulative metrics
-
-### 3. Decision-oriented interpretation
-Instead of stopping at statistical output, the findings were translated into a decision story about:
-- policy responsiveness
-- timing of restrictions
-- vaccination and mortality trends
-
-### 4. Analytical maturity
-The project also recognizes that:
-- significant association is not the same as causal proof
-- aggregate country-level data has limitations
-- stronger inference would require more advanced models
