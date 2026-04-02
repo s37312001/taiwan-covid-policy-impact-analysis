@@ -12,7 +12,7 @@ The merged 2021 dataset combined daily new cases with three policy indicators:
 - public event cancellation
 - stay-at-home requirements
 
-![Merged 2021 dataset preview](The graph 1.png)
+![image](The graph 1.png)
 
 To run the Chi-square test, `new_cases` was converted into a categorical variable called `level_new_cases`.
 
