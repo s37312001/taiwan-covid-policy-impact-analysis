@@ -3,7 +3,7 @@
 > A data analysis project exploring whether government policy intensity was significantly associated with COVID-19 case severity in Taiwan, and how vaccination expansion related to mortality decline.
 
 ---
-## Project Structure
+## 1. Project Structure
 
 ```text
 ├── README.md
@@ -17,7 +17,7 @@
 ```
 ---
 
-## 1. Project Overview
+## 2. Project Overview
 
 This project analyzes whether government policy responses were meaningfully associated with COVID-19 outcomes in Taiwan.
 
@@ -34,7 +34,7 @@ The project focuses on two analytical questions:
 
 ---
 
-## 2. Why I Chose This Topic
+## 3. Why I Chose This Topic
 
 Governments often need to make time-sensitive decisions during crises, but decision-makers cannot rely on intuition alone.  
 This project starts from a practical question:
@@ -43,14 +43,14 @@ This project starts from a practical question:
 
 ---
 
-## 3. Problem Statement
+## 4. Problem Statement
 
 ### Research Question
 - Are government policy measures significantly associated with COVID-19 case severity in Taiwan?
 - Does increased vaccination coverage correspond with lower mortality risk?
 ---
 
-## 4. Data Source
+## 5. Data Source
 
 ### Main Source
 Public datasets from **Our World in Data**
@@ -76,10 +76,10 @@ Public datasets from **Our World in Data**
 - `total_deaths`
 
 ---
-## Recommended Reading Order
-- [Methodology](methodology.md)
-- [Findings](findings.md)
-- [Limitations](conclution_and_limitations.md)
-- [References](references.md)
-- [Analysis Script](analysis.R)
+## 6. Recommended Reading Order
+1. [Methodology](methodology.md)
+2. [Findings](findings.md)
+3. [Limitations](conclution_and_limitations.md)
+4. [References](references.md)
+5. [Analysis Script](analysis.R)
 
