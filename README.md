@@ -28,13 +28,6 @@ This project starts from a practical question:
 
 > When case numbers surge, do policy changes actually move together with outbreak severity?
 
-Although the topic is public policy, the analytical process is highly transferable to business analysis:
-
-- translating a broad question into measurable variables
-- integrating multiple datasets
-- selecting methods based on variable type
-- turning statistical findings into decision-oriented insights
-
 ---
 
 ## 3. Problem Statement
@@ -42,14 +35,6 @@ Although the topic is public policy, the analytical process is highly transferab
 ### Research Question
 - Are government policy measures significantly associated with COVID-19 case severity in Taiwan?
 - Does increased vaccination coverage correspond with lower mortality risk?
-
-### Business-Framed Question
-If this were a real decision-making scenario, the practical questions would be:
-
-- Which interventions are most strongly associated with worsening outbreak conditions?
-- How should decision-makers interpret case growth after vaccination becomes widespread?
-- Which KPI should matter more in later stages of the pandemic: raw cases or mortality risk?
-
 ---
 
 ## 4. Data Source
