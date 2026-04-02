@@ -11,7 +11,6 @@
 │   └── references.md
 ├── scripts/
 │   └── analysis.R
-├── figures/
 ```
 
 ## Recommended Reading Order
